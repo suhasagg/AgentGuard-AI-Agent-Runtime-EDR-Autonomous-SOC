@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: agentguard, namespace: agentguard}
+spec:
+ replicas: 3
+ selector: {matchLabels: {app: agentguard}}
+ template:
+  metadata: {labels: {app: agentguard}}
+  spec:
+   containers:
+   - name: api
+     image: agentguard:latest
+     ports: [{containerPort: 8000}]
+     securityContext: {runAsNonRoot: true, allowPrivilegeEscalation: false, readOnlyRootFilesystem: true}
